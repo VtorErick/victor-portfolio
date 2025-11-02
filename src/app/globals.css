@@ -1,8 +1,15 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafbfc; /* soft gray-white */
+  --foreground: #1e293b; /* slate-800 */
+  --card: #ffffff;
+  --muted: #f1f5f9; /* slate-100 */
+  --link: #0369a1; /* sky-700 - soft professional blue */
+  --link-hover: #075985; /* sky-800 */
+  --link-rgb: 3, 105, 161; /* sky-700 RGB */
+  --hero-from: #0284c7; /* sky-600 */
+  --hero-to: #0369a1;   /* sky-700 */
 }
 
 @theme inline {
@@ -14,13 +21,54 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #0e0f12; /* charcoal */
+    --foreground: #e6e7eb; /* near-white */
+    --card: #111318; /* deep panel */
+    --muted: #151821; /* muted panel */
+    --link: #22d3ee; /* cyan-400 */
+    --link-hover: #06b6d4; /* cyan-500 */
+    --link-rgb: 34, 211, 238; /* cyan-400 RGB */
+    --hero-from: #0a0f1a; /* ink */
+    --hero-to: #111827;   /* slate-900 */
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Manual theme override via data-theme attribute */
+[data-theme="dark"] {
+  --background: #0e0f12;
+  --foreground: #e6e7eb;
+  --card: #111318;
+  --muted: #151821;
+  --link: #22d3ee;
+  --link-hover: #06b6d4;
+  --link-rgb: 34, 211, 238;
+  --hero-from: #0a0f1a;
+  --hero-to: #111827;
+  color-scheme: dark;
 }
+
+/* Force light palette when explicitly selected */
+[data-theme="light"] {
+  --background: #fafbfc;
+  --foreground: #1e293b;
+  --card: #ffffff;
+  --muted: #f1f5f9;
+  --link: #0369a1;
+  --link-hover: #075985;
+  --link-rgb: 3, 105, 161;
+  --hero-from: #0284c7;
+  --hero-to: #0369a1;
+  color-scheme: light;
+}
+
+body { background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+
+/* Improve focus visibility */
+:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+
+/* Skip link */
+.skip-link { position: fixed; left: 1rem; top: -40px; background: var(--card); color: var(--foreground); padding: 8px 12px; border: 1px solid #0000001a; border-radius: 6px; z-index: 10000; transition: top .2s ease; }
+.skip-link:focus { top: 1rem; }
+
+/* Hide Next.js dev indicators in development */
+[data-nextjs-toast], #__next-build-watcher, .nextjs-portal-root, [data-nextjs-dev-overlay-root] { display: none !important; }
