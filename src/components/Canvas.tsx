@@ -83,6 +83,7 @@ function Canvas() {
     const particles: Particle[] = []
 
     function createParticles() {
+      if (!canvas) return
       particles.splice(0, particles.length)
       for (let i = 0; i < 100; i++) {
         particles.push(Particle.create(canvas.width, canvas.height))
@@ -90,6 +91,7 @@ function Canvas() {
     }
 
     function handleResize() {
+      if (!canvas) return
       canvas.width = window.innerWidth
       canvas.height = window.innerHeight
       createParticles()
@@ -98,15 +100,18 @@ function Canvas() {
     let animationId: number
 
     function render() {
+      if (!canvas || !ctx) return
       ctx.clearRect(0, 0, canvas.width, canvas.height)
 
       particles.forEach(p => {
+        if (!canvas || !ctx) return
         p.update(canvas.width, canvas.height)
         p.draw(ctx)
       })
 
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
+          if (!ctx) return
           particles[i].drawConnectionTo(ctx, particles[j])
         }
       }
@@ -120,7 +125,7 @@ function Canvas() {
     window.addEventListener('resize', handleResize)
     if (!prefersReducedMotion) {
       animationId = requestAnimationFrame(render)
-    } else {
+    } else if (canvas && ctx) {
       // Draw a single static frame
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       particles.forEach(p => p.draw(ctx))
