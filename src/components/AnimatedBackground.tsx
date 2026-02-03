@@ -239,7 +239,7 @@ export default function AnimatedBackground({
       animate()
     }
 
-    function renderOrbFlow(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, reducedMotion: boolean, intensity: string, linkRgb: [number, number, number]) {
+    function renderOrbFlow(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, reducedMotion: boolean, intensity: string, linkRgb: string) {
       const orbs: Array<{x: number; y: number; r: number; vx: number; vy: number}> = []
       for (let i = 0; i < 8; i++) {
         orbs.push({
@@ -277,7 +277,7 @@ export default function AnimatedBackground({
       canvas: HTMLCanvasElement, 
       reducedMotion: boolean, 
       intensity: string, 
-      linkRgb: [number, number, number]
+      linkRgb: string
     ) {
       // Simple grid
       let time = 0
@@ -307,7 +307,7 @@ export default function AnimatedBackground({
       canvas: HTMLCanvasElement, 
       reducedMotion: boolean, 
       intensity: string, 
-      linkRgb: [number, number, number]
+      linkRgb: string
     ) {
       const fs = 14; const cols = Math.ceil(canvas.width / fs); const drops = new Array(cols).fill(1)
       function animate() {
