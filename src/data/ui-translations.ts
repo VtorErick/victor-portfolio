@@ -149,6 +149,10 @@ export const uiTranslations = {
     viewLinkedIn: {
       es: 'Ver perfil de LinkedIn',
       en: 'View LinkedIn profile'
+    },
+    viewGitHub: {
+      es: 'Ver en GitHub',
+      en: 'View on GitHub'
     }
   }
 } as const;

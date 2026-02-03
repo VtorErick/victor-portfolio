@@ -5,7 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 import { Post } from '@/lib/mdx'
 import Comments from '@/components/Comments'
-import MDXContent from '@/components/MDXContent'
+import { MDXContent } from '@/components/MDXContent'
 
 interface BlogPostProps {
     postEs: Post
