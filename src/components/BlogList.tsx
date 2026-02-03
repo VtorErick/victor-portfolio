@@ -3,7 +3,7 @@
 import { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { Post } from '@/lib/mdx'
-import { Search, Tag as TagIcon, X } from 'lucide-react'
+import { Search, Tag as TagIcon, X, ChevronDown } from 'lucide-react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 import { t } from '@/utils/translate'
@@ -20,13 +20,18 @@ const translations = {
     filters: { es: "Filtros:", en: "Filters:" },
     clearFilter: { es: "Limpiar filtro", en: "Clear filter" },
     noResults: { es: "No se encontraron artículos.", en: "No articles found matching your criteria." },
-    clearAll: { es: "Limpiar todo", en: "Clear all filters" }
+    clearAll: { es: "Limpiar todo", en: "Clear all filters" },
+    showMoreTags: { es: "Ver más tags", en: "Show more tags" },
+    showLessTags: { es: "Ver menos tags", en: "Show less tags" }
 }
+
+const MAX_VISIBLE_TAGS = 6;
 
 export default function BlogList({ postsEs, postsEn }: BlogListProps) {
     const { language } = useLanguageContext()
     const [searchQuery, setSearchQuery] = useState('')
     const [selectedTag, setSelectedTag] = useState<string | null>(null)
+    const [showAllTags, setShowAllTags] = useState(false)
 
     // Select posts based on language
     const currentPosts = language === 'es' ? postsEs : postsEn
@@ -35,6 +40,8 @@ export default function BlogList({ postsEs, postsEn }: BlogListProps) {
     const allTags = useMemo(() => {
         return Array.from(new Set(currentPosts.flatMap(post => post.meta.tags || []))).sort()
     }, [currentPosts])
+
+    const visibleTags = showAllTags ? allTags : allTags.slice(0, MAX_VISIBLE_TAGS)
 
     const filteredPosts = useMemo(() => {
         return currentPosts.filter((post) => {
@@ -84,27 +91,38 @@ export default function BlogList({ postsEs, postsEn }: BlogListProps) {
 
                 {/* Tags */}
                 {allTags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 items-center">
-                        <div className="flex items-center gap-2 text-sm text-[var(--foreground)]/60 mr-2">
+                    <div className="space-y-3">
+                        <div className="flex items-center gap-2 text-sm text-[var(--foreground)]/60">
                             <TagIcon size={16} />
                             <span>{t(translations.filters, language)}</span>
                         </div>
-                        {allTags.map(tag => (
+                        <div className="flex flex-wrap gap-2 items-center">
+                            {visibleTags.map(tag => (
+                                <button
+                                    key={tag}
+                                    onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
+                                    className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedTag === tag
+                                            ? 'bg-[var(--link)] text-white shadow-md'
+                                            : 'bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)]/80 hover:border-[var(--link)] hover:text-[var(--link)]'
+                                        }`}
+                                >
+                                    {tag}
+                                </button>
+                            ))}
+                        </div>
+                        {allTags.length > MAX_VISIBLE_TAGS && (
                             <button
-                                key={tag}
-                                onClick={() => setSelectedTag(selectedTag === tag ? null : tag)}
-                                className={`px-3 py-1.5 rounded-full text-sm font-medium transition-all ${selectedTag === tag
-                                        ? 'bg-[var(--link)] text-white shadow-md'
-                                        : 'bg-[var(--card)] border border-[var(--border)] text-[var(--foreground)]/80 hover:border-[var(--link)] hover:text-[var(--link)]'
-                                    }`}
+                                onClick={() => setShowAllTags(!showAllTags)}
+                                className="flex items-center gap-1 text-xs text-[var(--link)] hover:text-[var(--link)]/80 font-medium transition-colors"
                             >
-                                {tag}
+                                <ChevronDown size={14} className={showAllTags ? 'rotate-180' : ''} />
+                                {t(showAllTags ? translations.showLessTags : translations.showMoreTags, language)}
                             </button>
-                        ))}
+                        )}
                         {selectedTag && (
                             <button
                                 onClick={() => setSelectedTag(null)}
-                                className="text-xs text-[var(--foreground)]/50 hover:text-[var(--link)] underline ml-2"
+                                className="text-xs text-[var(--foreground)]/50 hover:text-[var(--link)] underline"
                             >
                                 {t(translations.clearFilter, language)}
                             </button>

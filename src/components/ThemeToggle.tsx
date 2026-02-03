@@ -12,18 +12,8 @@ interface ThemeToggleProps {
 }
 
 export default function ThemeToggle({ variant = "default" }: ThemeToggleProps) {
-  const { theme, toggleTheme, mounted } = useTheme()
+  const { theme, toggleTheme } = useTheme()
   const { language } = useLanguageContext()
-  
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return (
-      <div className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm opacity-50" aria-hidden="true">
-        <div className="w-[18px] h-[18px]" />
-        <span className="hidden sm:inline">{t(uiTranslations.buttons.loading, language)}</span>
-      </div>
-    )
-  }
 
   const isDark = theme === "dark"
   const nextLabel = isDark

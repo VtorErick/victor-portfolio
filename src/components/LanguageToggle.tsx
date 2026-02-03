@@ -11,18 +11,8 @@ interface LanguageToggleProps {
 }
 
 export default function LanguageToggle({ variant = "default" }: LanguageToggleProps) {
-  const { language, toggleLanguage, mounted } = useLanguageContext()
+  const { language, toggleLanguage } = useLanguageContext()
   
-  // Prevent hydration mismatch
-  if (!mounted) {
-    return (
-      <div className="inline-flex items-center gap-2 rounded-md border px-3 py-2 text-sm opacity-50" aria-hidden="true">
-        <div className="w-[18px] h-[18px]" />
-        <span className="hidden sm:inline">{t(uiTranslations.buttons.loading, language)}</span>
-      </div>
-    )
-  }
-
   const isSpanish = language === "es"
   const nextLabel = isSpanish
     ? t(uiTranslations.aria.switchToEnglish, language)
