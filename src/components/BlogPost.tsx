@@ -5,6 +5,7 @@ import { ArrowLeft } from 'lucide-react'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 import { Post } from '@/lib/mdx'
 import Comments from '@/components/Comments'
+import BlogPostFooter from '@/components/BlogPostFooter'
 import { ReactNode } from 'react'
 
 interface BlogPostProps {
@@ -18,6 +19,8 @@ export default function BlogPost({ postEs, postEn, mdxContentEs, mdxContentEn }:
     const { language } = useLanguageContext()
     const post = language === 'es' ? postEs : postEn
     const mdxContent = language === 'es' ? mdxContentEs : mdxContentEn
+    const footerTags = (post.meta.footerTags ?? post.meta.tags ?? []) as string[]
+    const footerTechnologies = (post.meta.technologies ?? []) as string[]
 
     return (
         <article className="max-w-3xl mx-auto px-4 py-24 md:py-32">
@@ -53,7 +56,9 @@ export default function BlogPost({ postEs, postEn, mdxContentEs, mdxContentEn }:
 
             {mdxContent}
 
-            <Comments />
+            <BlogPostFooter tags={footerTags} technologies={footerTechnologies} />
+
+            <Comments slug={post.slug} />
         </article>
     )
 }

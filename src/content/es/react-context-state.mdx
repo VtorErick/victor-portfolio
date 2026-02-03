@@ -3,6 +3,8 @@ title: "Gestión de Estado Global con React Context"
 date: "2026-01-25"
 excerpt: "Evitando Redux en favor de React Context API para manejar el estado del tema y el idioma en una aplicación ligera."
 tags: ["React", "State Management", "Performance"]
+footerTags: ["React", "State Management", "Performance", "Contextos"]
+technologies: ["React Context", "TypeScript", "Next.js", "Custom Hooks"]
 ---
 
 # ¿Redux? No para esto.
@@ -33,7 +35,3 @@ export function UIProvider({ children }: { children: ReactNode }) {
 
 Para evitar re-renders innecesarios, separé los contextos que cambian frecuentemente (como inputs de usuario, si los hubiera) de los que cambian poco (Theme, Language). Dividir el estado es la clave para usar Context eficientemente.
 
-<BlogPostFooter 
-  tags={["React", "State Management", "Performance", "Contextos"]}
-  technologies={["React Context", "TypeScript", "Next.js", "Custom Hooks"]}
-/>
