@@ -31,17 +31,17 @@ export const portfolioData: PortfolioData = {
       period: 'Jan 2023 – Present',
       description: {
         es: [
-          'Desarrollé flujos de pago en tiempo real para tarjetas bancarias (USAA), soportando millones de transacciones diarias con latencia <100ms bajo picos de carga.',
-          'Diseñé arquitectura de observabilidad end-to-end con Datadog/Kibana, reduciendo MTTR (Mean Time To Resolve) para incidentes críticos de >30min a <5min.',
-          'Implementé consumer Kafka escalables y repositorios Couchbase (FTS) optimizados para alta concurrencia, validados con JMeter bajo cargas pico de 10k+ TPS.',
-          'Colaboré en refactorización de APIs REST críticas, mejorando documentación OpenAPI y reduciendo defectos de integración en 40%.',
+          'Desarrollé flujos de pago en tiempo real para tarjetas bancarias (USAA), soportando alto volumen (orden de millones/día) con latencia sub-100ms en escenarios críticos.',
+          'Diseñé arquitectura de observabilidad end-to-end con Datadog/Kibana, mejorando significativamente el MTTR (Mean Time To Resolve) para incidentes críticos.',
+          'Implementé consumer Kafka escalables y repositorios Couchbase (FTS) optimizados para alta concurrencia, validados bajo cargas pico de miles de TPS.',
+          'Colaboré en refactorización de APIs REST críticas, mejorando documentación OpenAPI y logrando reducción notable de defectos de integración.',
           'Mentoreé 2 desarrolladores junior en patrones de resiliencia (retry policies, circuit breakers) y debugging de problemas transaccionales.'
         ],
         en: [
-          'Developed real-time payment flows for banking credit cards (USAA), supporting millions of daily transactions with <100ms latency under peak load.',
-          'Designed end-to-end observability architecture with Datadog/Kibana, reducing MTTR (Mean Time To Resolve) for critical incidents from >30min to <5min.',
-          'Implemented scalable Kafka consumers and optimized Couchbase repositories (FTS) for high concurrency, validated under peak load of 10k+ TPS with JMeter.',
-          'Collaborated on critical REST APIs refactoring, improving OpenAPI documentation and reducing integration defects by 40%.',
+          'Developed real-time payment flows for banking credit cards (USAA), supporting high volume (millions/day order of magnitude) with sub-100ms latency in critical scenarios.',
+          'Designed end-to-end observability architecture with Datadog/Kibana, significantly improving MTTR (Mean Time To Resolve) for critical incidents.',
+          'Implemented scalable Kafka consumers and optimized Couchbase repositories (FTS) for high concurrency, validated under peak loads of thousands of TPS.',
+          'Collaborated on critical REST APIs refactoring, improving OpenAPI documentation and achieving notable reduction in integration defects.',
           'Mentored 2 junior developers on resilience patterns (retry policies, circuit breakers) and transactional debugging techniques.'
         ]
       },
@@ -58,22 +58,22 @@ export const portfolioData: PortfolioData = {
       period: 'Nov 2018 – Jan 2023',
       description: {
         es: [
-          'Desarrollé aplicaciones Java empresariales para 3 proveedores Fortune 500 (entretenimiento), procesando millones de eventos diarios con arquitectura event-driven y Kafka.',
-          'Diseñé APIs REST documentadas con OpenAPI y JsonSchema2Pojo, estableciendo estándar de contrato-first que redujo defectos de integración en 35%.',
-          'Optimicé queries de Couchbase y creé índices FTS/secundarios que mejoraron latencia de búsqueda de 800ms a <50ms en datasets de 100M+ documentos.',
-          'Implementé seguridad de APIs con Keycloak (multi-tenant), resolviendo requisitos de aislamiento de datos críticos para clientes enterprise.',
-          'Resolví 50+ incidentes de producción (P1/P2) bajo presión, desarrollando análisis root cause y deploying fixes en <4 horas promedio.',
-          'Construí pipeline de automatización DevOps (Jenkins/Docker/Bash) que redujo deployment manual de 2 horas a 10 minutos, mejorando release cadence.',
-          'Escribí herramientas de data migration (Python/SQL) para migraciones sin downtime, procesando correctamente 500M+ transacciones con validación de integridad.'
+          'Desarrollé aplicaciones Java empresariales para múltiples proveedores Fortune 500 (entretenimiento), procesando alto volumen de eventos diarios con arquitectura event-driven y Kafka.',
+          'Diseñé APIs REST documentadas con OpenAPI y JsonSchema2Pojo, estableciendo estándar de contrato-first que logró reducción notable de defectos de integración.',
+          'Optimicé queries de Couchbase y creé índices FTS/secundarios que mejoraron significativamente la latencia de búsqueda en datasets de gran escala (100M+ documentos).',
+          'Implementé seguridad de APIs con Keycloak (multi-tenant), resolviendo requisitos críticos de aislamiento de datos para clientes enterprise.',
+          'Resolví múltiples incidentes de producción (P1/P2) desarrollando análisis root cause y desplegando soluciones de manera oportuna.',
+          'Construí pipeline de automatización DevOps (Jenkins/Docker/Bash) mejorando significativamente la velocidad y cadencia de deployments.',
+          'Escribí herramientas de data migration (Python/SQL) para migraciones sin downtime, procesando correctamente volúmenes significativos de transacciones con validación de integridad.'
         ],
         en: [
-          'Developed enterprise Java applications for 3 Fortune 500 providers (entertainment), processing millions of daily events with event-driven architecture and Kafka.',
-          'Designed REST APIs documented with OpenAPI and JsonSchema2Pojo, establishing contract-first standard that reduced integration defects by 35%.',
-          'Optimized Couchbase queries and created FTS/secondary indexes improving search latency from 800ms to <50ms on 100M+ document datasets.',
+          'Developed enterprise Java applications for multiple Fortune 500 providers (entertainment), processing high volume of daily events with event-driven architecture and Kafka.',
+          'Designed REST APIs documented with OpenAPI and JsonSchema2Pojo, establishing contract-first standard that achieved notable reduction in integration defects.',
+          'Optimized Couchbase queries and created FTS/secondary indexes that significantly improved search latency on large-scale datasets (100M+ documents).',
           'Implemented Keycloak-based API security (multi-tenant), solving critical data isolation requirements for enterprise customers.',
-          'Resolved 50+ production incidents (P1/P2) under pressure, developing root cause analysis and deploying fixes in <4 hours average.',
-          'Built DevOps automation pipeline (Jenkins/Docker/Bash) reducing manual deployments from 2 hours to 10 minutes, improving release cadence.',
-          'Wrote data migration tools (Python/SQL) for zero-downtime migrations, correctly processing 500M+ transactions with integrity validation.'
+          'Resolved multiple production incidents (P1/P2), developing root cause analysis and deploying solutions in a timely manner.',
+          'Built DevOps automation pipeline (Jenkins/Docker/Bash) significantly improving deployment speed and release cadence.',
+          'Wrote data migration tools (Python/SQL) for zero-downtime migrations, correctly processing significant transaction volumes with integrity validation.'
         ]
       },
       technologies: ['Java', 'Spring', 'OpenAPI', 'Gradle', 'JsonSchema2Pojo', 'Kafka', 'Couchbase', 'Keycloak', 'Mockito', 'Jenkins', 'Docker', 'Python', 'SQL'],

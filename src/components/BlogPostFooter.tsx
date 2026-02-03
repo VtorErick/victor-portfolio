@@ -1,6 +1,7 @@
 "use client"
 
-import { Mail, Linkedin, Github } from 'lucide-react'
+import { Mail, Linkedin, Github, Copy, Check } from 'lucide-react'
+import { useState } from 'react'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 
 interface BlogPostFooterProps {
@@ -10,12 +11,14 @@ interface BlogPostFooterProps {
 
 export default function BlogPostFooter({ tags = [], technologies = [] }: BlogPostFooterProps) {
   const { language } = useLanguageContext()
+  const [copied, setCopied] = useState(false)
 
   const translations = {
     stackLabel: { es: 'Stack técnico que uso:', en: 'Tech stack I use:' },
     relatedTags: { es: 'Etiquetas relacionadas:', en: 'Related tags:' },
     contactLabel: { es: '¿Quieres conversar sobre esto?', en: 'Want to chat about this?' },
     contactDesc: { es: 'Conéctate conmigo en LinkedIn, revisa mi GitHub o envíame un correo.', en: 'Connect with me on LinkedIn, check my GitHub, or send me an email.' },
+    copiedEmail: { es: 'Correo copiado', en: 'Email copied' },
   }
 
   const workStackTechnologies = [
@@ -23,6 +26,12 @@ export default function BlogPostFooter({ tags = [], technologies = [] }: BlogPos
     'Kafka', 'Couchbase', 'AWS',
     'Datadog', 'Kibana', 'Docker', 'Kubernetes'
   ]
+
+  const handleCopyEmail = async () => {
+    await navigator.clipboard.writeText('victorerickad@gmail.com')
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
 
   return (
     <div className="mt-12 pt-8 border-t border-[var(--border)] space-y-8">
@@ -70,7 +79,7 @@ export default function BlogPostFooter({ tags = [], technologies = [] }: BlogPos
         <p className="text-sm text-[var(--foreground)]/70 mb-4">
           {translations.contactDesc[language as 'es' | 'en']}
         </p>
-        <div className="flex gap-4">
+        <div className="flex gap-4 flex-wrap">
           <a
             href="https://linkedin.com/in/victorerickad"
             target="_blank"
@@ -99,6 +108,28 @@ export default function BlogPostFooter({ tags = [], technologies = [] }: BlogPos
             <Mail size={16} />
             Email
           </a>
+          <button
+            onClick={handleCopyEmail}
+            className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all border ${
+              copied
+                ? 'bg-green-100 dark:bg-green-900/30 border-green-300 dark:border-green-700 text-green-700 dark:text-green-300'
+                : 'bg-[var(--link)]/10 hover:bg-[var(--link)]/20 border-[var(--link)]/30 text-[var(--link)]'
+            }`}
+            aria-label="Copy email"
+            title="victorerickad@gmail.com"
+          >
+            {copied ? (
+              <>
+                <Check size={16} />
+                {translations.copiedEmail[language as 'es' | 'en']}
+              </>
+            ) : (
+              <>
+                <Copy size={16} />
+                Copy
+              </>
+            )}
+          </button>
         </div>
       </div>
     </div>
