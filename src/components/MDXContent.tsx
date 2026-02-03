@@ -1,10 +1,12 @@
 import { MDXRemote } from 'next-mdx-remote/rsc'
+import BlogPostFooter from './BlogPostFooter'
 
 interface MDXContentProps {
     content: string
 }
 
 const components = {
+    BlogPostFooter,
 }
 
 export async function MDXContent({ content }: MDXContentProps) {

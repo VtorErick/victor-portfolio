@@ -82,7 +82,7 @@ export default function BlogPostFooter({ tags = [], technologies = [] }: BlogPos
             LinkedIn
           </a>
           <a
-            href="https://github.com/victorerickad"
+            href="https://github.com/VtorErick/"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-4 py-2 bg-[var(--link)]/10 hover:bg-[var(--link)]/20 border border-[var(--link)]/30 rounded-lg text-sm font-medium text-[var(--link)] transition-colors"
