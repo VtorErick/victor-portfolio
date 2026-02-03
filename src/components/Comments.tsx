@@ -1,15 +1,21 @@
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useLanguageContext } from '@/contexts/LanguageContext';
 
 export default function Comments() {
-    const { language } = useLanguageContext();
+    const { language, mounted } = useLanguageContext();
+    const scriptLoadedRef = useRef(false);
 
-    // Mount giscus only once
+    // Mount giscus only once, after hydration
     useEffect(() => {
+        // Wait for hydration to complete
+        if (!mounted) return;
+        
         // Check if giscus script is already loaded
-        if (document.querySelector('script[data-giscus]')) return;
+        if (scriptLoadedRef.current || document.querySelector('script[data-giscus]')) return;
+        
+        scriptLoadedRef.current = true;
 
         const theme = document.documentElement.getAttribute('data-theme') === 'dark'
             ? 'dark'
@@ -35,10 +41,12 @@ export default function Comments() {
         if (commentsDiv) {
             commentsDiv.appendChild(script);
         }
-    }, []);
+    }, [mounted]);
 
     // Update language and theme without remounting giscus
     useEffect(() => {
+        if (!mounted) return;
+
         const iframe = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
         if (!iframe) return;
 
@@ -57,7 +65,7 @@ export default function Comments() {
             },
             'https://giscus.app'
         );
-    }, [language]);
+    }, [language, mounted]);
 
     return (
         <div className="mt-16 pt-8 border-t border-[var(--border)]">

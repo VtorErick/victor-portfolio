@@ -14,13 +14,22 @@ function getPreferredLanguage(): Language {
 }
 
 export function useLanguage() {
+  // Initialize with 'es' to match server-side default
+  // This prevents hydration mismatch
   const [language, setLanguage] = useState<Language>('es');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Get the actual preference after mount
     const initial = getPreferredLanguage();
-    setLanguage(initial);
-    document.documentElement.setAttribute('lang', initial);
+    // Only update if it's different from the default
+    if (initial !== 'es') {
+      setLanguage(initial);
+      document.documentElement.setAttribute('lang', initial);
+    } else {
+      // Ensure attribute is set even if language matches
+      document.documentElement.setAttribute('lang', 'es');
+    }
     setMounted(true);
   }, []);
 

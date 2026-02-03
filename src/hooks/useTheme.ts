@@ -13,13 +13,22 @@ function getPreferredTheme(): Theme {
 }
 
 export function useTheme() {
+  // Initialize with 'light' to match server-side default
+  // This prevents hydration mismatch
   const [theme, setTheme] = useState<Theme>('light');
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
+    // Get the actual preference after mount
     const initial = getPreferredTheme();
-    setTheme(initial);
-    document.documentElement.setAttribute('data-theme', initial);
+    // Only update if it's different from the default
+    if (initial !== 'light') {
+      setTheme(initial);
+      document.documentElement.setAttribute('data-theme', initial);
+    } else {
+      // Ensure attribute is set even if theme matches
+      document.documentElement.setAttribute('data-theme', 'light');
+    }
     setMounted(true);
   }, []);
 
