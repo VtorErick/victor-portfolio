@@ -1,0 +1,14 @@
+#!/bin/sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running pre-push checks..."
+
+# Run full test suite
+echo "Running tests..."
+npm test || exit 1
+
+# Run build check
+echo "Verifying build..."
+npm run build || exit 1
+
+echo "✓ All pre-push checks passed"
