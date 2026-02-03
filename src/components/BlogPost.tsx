@@ -2,17 +2,14 @@
 
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
-import { MDXRemote } from 'next-mdx-remote/rsc'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 import { Post } from '@/lib/mdx'
 import Comments from '@/components/Comments'
+import MDXContent from '@/components/MDXContent'
 
 interface BlogPostProps {
     postEs: Post
     postEn: Post
-}
-
-const components = {
 }
 
 export default function BlogPost({ postEs, postEn }: BlogPostProps) {
@@ -51,9 +48,7 @@ export default function BlogPost({ postEs, postEn }: BlogPostProps) {
                 </div>
             </header>
 
-            <div className="prose prose-lg dark:prose-invert prose-headings:text-[var(--foreground)] prose-a:text-[var(--link)] prose-strong:text-[var(--foreground)] text-[var(--foreground)]/80 max-w-none">
-                <MDXRemote source={post.content} components={components} />
-            </div>
+            <MDXContent content={post.content} />
 
             <Comments />
         </article>
