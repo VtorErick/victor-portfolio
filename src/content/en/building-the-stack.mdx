@@ -1,0 +1,48 @@
+---
+title: "Building a Modern Portfolio: The Tech Stack"
+date: "2026-02-03"
+excerpt: "A deep dive into why I chose Next.js 15, Tailwind CSS, and TypeScript to build this high-performance website."
+tags: ["Architecture", "Next.js", "TypeScript", "Tailwind"]
+---
+
+# The Tech Stack
+
+When I decided to revamp my portfolio, I knew I didn't just want a "pretty face." I wanted a platform that demonstrated engineering capability, performance, and scalability.
+
+## The Core: Next.js 15 (App Router)
+
+I chose **Next.js** for its hybrid rendering capabilities. Most of the site is **Static Site Generation (SSG)** for unmatched speed, but I maintain interactivity with client components (`"use client"`) where necessary, such as in the navigation bar or blog filters.
+
+```typescript
+// Example of Client Component for interactivity
+"use client"
+
+import { useState } from 'react'
+
+export default function InteractiveComponent() {
+  const [count, setCount] = useState(0)
+  // ...
+}
+```
+
+## Styling: Tailwind CSS v4
+
+Development speed with Tailwind is superior. Plus, it allows for a consistent token-based design system.
+
+- **Responsive Design**: Utility-first Grid and Flexbox.
+- **Dark Mode**: Native support with `dark:` modifiers.
+- **Glassmorphism**: `backdrop-blur` effects for a modern look.
+
+## Strong Typing: TypeScript
+
+No serious project exists without TypeScript. From defining portfolio data to React components, everything is typed to prevent compile-time errors and improve maintainability.
+
+```typescript
+interface Project {
+  title: string
+  description: Record<'es' | 'en', string>
+  technologies: string[]
+}
+```
+
+This stack is not just modern; it is the industry standard for high-level web applications.

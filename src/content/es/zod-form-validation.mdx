@@ -1,0 +1,24 @@
+---
+title: "Validación de Formularios a Prueba de Balas con Zod"
+date: "2025-12-25"
+excerpt: "Profundizando en el formulario de contacto: Cómo Zod y React Hook Form garantizan datos limpios antes de enviarlos."
+tags: ["TypeScript", "Forms", "Zod"]
+---
+
+# Confianza en los Datos
+
+Validar formularios a mano es propenso a errores. En este proyecto, defino un "esquema" de lo que espero recibir:
+
+```typescript
+const formSchema = z.object({
+  email: z.string().email("Debe ser un correo válido"),
+  message: z.string().min(10, "El mensaje es muy corto"),
+})
+```
+
+React Hook Form usa este esquema con `zodResolver`.
+- **UX**: El usuario recibe feedback instantáneo mientras escribe.
+- **Seguridad**: Evitamos enviar datos basura a la API.
+- **DX**: TypeScript infiere los tipos automáticamente.
+
+Es una trinidad perfecta de Experiencia de Usuario, Seguridad y Experiencia de Desarrollo.

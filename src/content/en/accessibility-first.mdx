@@ -1,0 +1,16 @@
+---
+title: "Accessibility (a11y): Building for Everyone"
+date: "2025-12-20"
+excerpt: "How I used ARIA roles, semantic tags and keyboard navigation to make this portfolio inclusive."
+tags: ["Accessibility", "A11y", "HTML"]
+---
+
+# The Web is for Everyone
+
+Accessibility is not a "feature", it's a requirement. During the development of this portfolio, I ensured:
+
+1.  **Semantic HTML**: Using `<nav>`, `<main>`, `<article>` and `<footer>` instead of just `<div>`. This helps screen readers understand the structure.
+2.  **Focus Management**: All interactive elements (buttons, links) have clear `:focus-visible` states for keyboard navigation.
+3.  **Color Contrast**: Checked that text and background colors (especially in dark mode and indigo color) met WCAG AA standards.
+
+I even added a unit test (`a11y.test.tsx`) that uses `axe-core` to automatically audit that I don't break basic accessibility rules in every deploy.

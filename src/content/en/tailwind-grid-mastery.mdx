@@ -1,0 +1,24 @@
+---
+title: "Mastering CSS Grid with Tailwind"
+date: "2026-01-10"
+excerpt: "How I built the bento-grid card layout for the 'Skills' and 'Achievements' sections without touching pure CSS."
+tags: ["CSS", "Tailwind", "Design"]
+---
+
+# The End of Floats
+
+CSS Grid has revolutionized web design, and Tailwind makes it trivial. In the skills section of this portfolio, I use a responsive grid layout.
+
+```tsx
+<div className="grid md:grid-cols-2 gap-6 md:gap-8">
+  {skills.map(skill => (
+    <SkillCard key={skill.id} {...skill} />
+  ))}
+</div>
+```
+
+## Why Grid over Flexbox?
+
+While Flexbox is one-dimensional (row OR column), Grid is two-dimensional. This allows me to align experience cards not just horizontally but vertically, creating more robust layouts that automatically adapt to screen size (`md:grid-cols-2`).
+
+The `gap-6` utility handles spacing automatically, eliminating the need for negative margins or old hacks.

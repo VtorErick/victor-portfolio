@@ -1,0 +1,41 @@
+---
+title: "Ingeniería de Software: CI/CD y Testing Automatizado"
+date: "2026-02-05"
+excerpt: "Por qué configuré Jest, Playwright y GitHub Actions para un proyecto personal. La importancia de la calidad de software."
+tags: ["DevOps", "Testing", "CI/CD", "Playwright"]
+---
+
+# Más allá del Código: Calidad y Automatización
+
+Escribir código es solo la mitad del trabajo. Asegurarse de que funcione mañana, pasado mañana y después de 10 refactorizaciones es la otra mitad.
+
+## Estrategia de Testing
+
+Implementé una pirámide de pruebas sólida:
+
+1.  **Unit Tests (Jest + React Testing Library)**:
+    Verifican componentes aislados. Por ejemplo, aseguran que el componente `Button` renderiza el texto correcto y maneja los clics.
+
+2.  **End-to-End (Playwright)**:
+    Prueban la aplicación como un usuario real. Un robot abre Chrome, navega a la home, verifica que el título sea "Víctor Erick Acosta Durán" y comprueba que la navegación funcione.
+
+```typescript
+// tests/home.spec.ts
+test('has correct title', async ({ page }) => {
+  await page.goto('/');
+  await expect(page).toHaveTitle(/Víctor Erick/);
+});
+```
+
+## CI/CD con GitHub Actions
+
+No confío en mi memoria para correr los tests antes de cada deploy. Por eso configuré un workflow de GitHub Actions.
+
+Cada vez que hago `git push`, el servidor de CI:
+1.  Instala dependencias.
+2.  Ejecuta el linter.
+3.  Corre los Tests Unitarios.
+4.  Ejecuta los Tests E2E.
+5.  Construye el proyecto (`npm run build`).
+
+Si algo falla, el deploy se detiene. Esto garantiza que la versión en producción siempre sea estable.

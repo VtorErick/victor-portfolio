@@ -1,0 +1,37 @@
+---
+title: "Understanding Next.js App Router vs Pages"
+date: "2026-01-20"
+excerpt: "Why I shifted my mindset from `pages/` to `app/` and the benefits of Server Components by default."
+tags: ["Next.js", "Architecture", "React Server Components"]
+---
+
+# The Paradigm Shift
+
+Next.js 13 introduced the App Router, and in version 15 (used in this site), it is the undisputed standard.
+
+## Server Components by Default
+
+In the `app/` directory, everything is a Server Component unless you say otherwise. This means:
+- **0kb of JS** sent to the client for static components (like my Footer or Texts).
+- Direct access to the database or file system (fs) without exposing secrets.
+
+## Nested Layouts
+
+The `layout.tsx` file allows me to define a persistent structure (like the NavBar) that doesn't unmount when navigating between pages, preserving scroll state and animations.
+
+```tsx
+// src/app/layout.tsx
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en">
+      <body>
+        <LanguageProvider>
+           {children}
+        </LanguageProvider>
+      </body>
+    </html>
+  )
+}
+```
+
+This architecture drastically reduces First Contentful Paint (FCP).

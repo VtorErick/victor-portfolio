@@ -15,7 +15,7 @@ export default function AchievementCard({ achievement, gradientPosition }: Achie
   return (
     <Card
       as="article"
-      className="rounded-xl border border-black/10 bg-[var(--muted)] p-5"
+      className="rounded-xl border border-[color:var(--border)] bg-[var(--muted)] p-5"
       gradient={{ position: gradientPosition, intensity: 0.12 }}
     >
       <h3 className="font-semibold mb-3 text-[color:var(--foreground)]">

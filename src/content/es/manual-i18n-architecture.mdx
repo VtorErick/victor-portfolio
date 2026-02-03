@@ -1,0 +1,33 @@
+---
+title: "Arquitectura de Internacionalización (i18n) Manual"
+date: "2025-12-05"
+excerpt: "Implementando un sistema bilingüe (Español/Inglés) ligero sin librerías pesadas como i18next."
+tags: ["i18n", "Architecture", "Patterns"]
+---
+
+# i18n Sin Bloatware
+
+Muchas librerías de i18n añaden mucho peso al bundle JS. Para este portafolio, diseñé una solución ligera y type-safe.
+
+## La Estructura de Datos
+
+Guardo las traducciones en objetos TypeScript simples o directamente en los datos:
+
+```typescript
+// data/portfolio-data.ts
+title: {
+  es: 'Ingeniero de Software',
+  en: 'Software Engineer'
+}
+```
+
+## El Hook `useLanguage`
+
+Un contexto simple provee el idioma actual (`es` o `en`) y una función `t` helper que selecciona la cadena correcta.
+
+```tsx
+const { language } = useLanguageContext()
+<h1>{t(data.title, language)}</h1>
+```
+
+Esto mantiene el código limpio, totalmente tipado y extremadamente rápido, permitiendo al usuario cambiar de idioma instantáneamente sin recargar la página.

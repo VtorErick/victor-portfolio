@@ -10,6 +10,10 @@ export const uiTranslations = {
       es: 'Ir a inicio',
       en: 'Go to home'
     },
+    goToBlog: {
+      es: 'Ir al blog',
+      en: 'Go to blog'
+    },
     goToSummary: {
       es: 'Ir a resumen profesional',
       en: 'Go to professional summary'
@@ -17,6 +21,10 @@ export const uiTranslations = {
     goToExperience: {
       es: 'Ir a experiencia laboral',
       en: 'Go to work experience'
+    },
+    goToAchievements: {
+      es: 'Ir a logros clave',
+      en: 'Go to key achievements'
     },
     goToSkills: {
       es: 'Ir a habilidades',
@@ -56,6 +64,10 @@ export const uiTranslations = {
       es: 'Educación',
       en: 'Education'
     },
+    blog: {
+      es: 'Blog',
+      en: 'Blog'
+    },
     contact: {
       es: 'Contacto',
       en: 'Contact'
@@ -65,12 +77,24 @@ export const uiTranslations = {
     downloadCV: {
       es: 'Descargar CV',
       en: 'Download CV'
+    },
+    loading: {
+      es: 'Cargando...',
+      en: 'Loading...'
+    },
+    lightMode: {
+      es: 'Modo claro',
+      en: 'Light mode'
+    },
+    darkMode: {
+      es: 'Modo oscuro',
+      en: 'Dark mode'
     }
   },
   contact: {
     intro: {
       es: 'Estoy abierto a oportunidades en desarrollo backend para banca, fintech y plataformas empresariales.',
-      en: 'I\'m open to backend roles in banking, fintech, and enterprise platforms.'
+      en: "I'm open to backend roles in banking, fintech, and enterprise platforms."
     },
     professionalId: {
       es: 'Cédula Profesional',
@@ -101,6 +125,22 @@ export const uiTranslations = {
     callPhone: {
       es: 'Llamar al',
       en: 'Call'
+    },
+    switchToEnglish: {
+      es: 'Cambiar a inglés',
+      en: 'Switch to English'
+    },
+    switchToSpanish: {
+      es: 'Cambiar a español',
+      en: 'Switch to Spanish'
+    },
+    switchToLight: {
+      es: 'Cambiar a modo claro',
+      en: 'Switch to light mode'
+    },
+    switchToDark: {
+      es: 'Cambiar a modo oscuro',
+      en: 'Switch to dark mode'
     },
     downloadCV: {
       es: 'Descargar currículum en formato PDF',

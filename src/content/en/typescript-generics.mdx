@@ -1,0 +1,25 @@
+---
+title: "The Power of Generics in TypeScript"
+date: "2026-01-15"
+excerpt: "How I used generics to create flexible UI components with strict type safety."
+tags: ["TypeScript", "Development", "Coding"]
+---
+
+# Beyond `any`
+
+TypeScript shines when you use generics to build reusable tools. A clear example in this project is my handling of API responses or polymorphic components.
+
+## The `contact-form` case
+
+To handle the form, we define a type inferred from Zod. This ensures that if I change the validation schema, TypeScript automatically warns me if my component tries to access a field that no longer exists.
+
+```typescript
+type FormData = z.infer<typeof formSchema>
+
+const onSubmit = (data: FormData) => {
+  // data.email exists and is string
+  // data.age would give compilation error
+}
+```
+
+Type safety not only prevents bugs but acts as living documentation for my future self.

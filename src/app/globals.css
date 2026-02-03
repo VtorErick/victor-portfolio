@@ -1,15 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafbfc; /* soft gray-white */
-  --foreground: #1e293b; /* slate-800 */
+  /* Bases - Clean, Professional (Zinc based) */
+  --background: #fafafa;
+  /* zinc-50 */
+  --foreground: #18181b;
+  /* zinc-900 */
+
+  /* Components */
   --card: #ffffff;
-  --muted: #f1f5f9; /* slate-100 */
-  --link: #0369a1; /* sky-700 - soft professional blue */
-  --link-hover: #075985; /* sky-800 */
-  --link-rgb: 3, 105, 161; /* sky-700 RGB */
-  --hero-from: #0284c7; /* sky-600 */
-  --hero-to: #0369a1;   /* sky-700 */
+  --muted: #f4f4f5;
+  /* zinc-100 */
+  --border: rgba(39, 39, 42, 0.1);
+  /* zinc-800 @ 10% */
+
+  /* Brand/Accent - "Indigo-Violet" Fusion for distinctive look - Dimmed for less brightness */
+  --link: #4f46e5;
+  /* indigo-600 */
+  --link-hover: #4338ca;
+  /* indigo-700 */
+  --link-rgb: 79, 70, 229;
+  /* indigo-600 RGB */
+
+  /* Gradients */
+  --hero-from: #e0e7ff;
+  /* indigo-100 */
+  --hero-to: #fafafa;
+  /* zinc-50 */
 }
 
 @theme inline {
@@ -21,54 +38,100 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0e0f12; /* charcoal */
-    --foreground: #e6e7eb; /* near-white */
-    --card: #111318; /* deep panel */
-    --muted: #151821; /* muted panel */
-    --link: #22d3ee; /* cyan-400 */
-    --link-hover: #06b6d4; /* cyan-500 */
-    --link-rgb: 34, 211, 238; /* cyan-400 RGB */
-    --hero-from: #0a0f1a; /* ink */
-    --hero-to: #111827;   /* slate-900 */
+    /* Bases - Deep, Rich Dark Mode (Zinc/Slate mix) */
+    --background: #09090b;
+    /* zinc-950 */
+    --foreground: #e4e4e7;
+    /* zinc-200 */
+
+    /* Components */
+    --card: #18181b;
+    /* zinc-900 - distinct from bg */
+    --muted: #121215;
+    /* slightly lighter than bg */
+
+    --border: rgba(255, 255, 255, 0.08);
+
+    /* Brand/Accent - Vibrant in dark mode - Dimmed */
+    --link: #6366f1;
+    /* indigo-500 (was 400) */
+    --link-hover: #4f46e5;
+    /* indigo-600 */
+    --link-rgb: 99, 102, 241;
+
+    --hero-from: #020203;
+    /* almost black */
+    --hero-to: #09090b;
+    /* zinc-950 */
   }
 }
 
 /* Manual theme override via data-theme attribute */
 [data-theme="dark"] {
-  --background: #0e0f12;
-  --foreground: #e6e7eb;
-  --card: #111318;
-  --muted: #151821;
-  --link: #22d3ee;
-  --link-hover: #06b6d4;
-  --link-rgb: 34, 211, 238;
-  --hero-from: #0a0f1a;
-  --hero-to: #111827;
+  --background: #09090b;
+  --foreground: #e4e4e7;
+  --card: #18181b;
+  --muted: #121215;
+  --border: rgba(255, 255, 255, 0.08);
+  --link: #818cf8;
+  --link-hover: #6366f1;
+  --link-rgb: 129, 140, 248;
+  --hero-from: #020203;
+  --hero-to: #09090b;
   color-scheme: dark;
 }
 
 /* Force light palette when explicitly selected */
 [data-theme="light"] {
-  --background: #fafbfc;
-  --foreground: #1e293b;
+  --background: #fafafa;
+  --foreground: #18181b;
   --card: #ffffff;
-  --muted: #f1f5f9;
-  --link: #0369a1;
-  --link-hover: #075985;
-  --link-rgb: 3, 105, 161;
-  --hero-from: #0284c7;
-  --hero-to: #0369a1;
+  --muted: #f4f4f5;
+  --border: rgba(39, 39, 42, 0.1);
+  --link: #6366f1;
+  --link-hover: #4f46e5;
+  --link-rgb: 99, 102, 241;
+  --hero-from: #e0e7ff;
+  --hero-to: #fafafa;
   color-scheme: light;
 }
 
-body { background: var(--background); color: var(--foreground); font-family: Arial, Helvetica, sans-serif; }
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
 
 /* Improve focus visibility */
-:focus-visible { outline: 2px solid var(--link); outline-offset: 3px; border-radius: 6px; }
+:focus-visible {
+  outline: 2px solid var(--link);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
 
 /* Skip link */
-.skip-link { position: fixed; left: 1rem; top: -40px; background: var(--card); color: var(--foreground); padding: 8px 12px; border: 1px solid #0000001a; border-radius: 6px; z-index: 10000; transition: top .2s ease; }
-.skip-link:focus { top: 1rem; }
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: -40px;
+  background: var(--card);
+  color: var(--foreground);
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  z-index: 10000;
+  transition: top .2s ease;
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
 
 /* Hide Next.js dev indicators in development */
-[data-nextjs-toast], #__next-build-watcher, .nextjs-portal-root, [data-nextjs-dev-overlay-root] { display: none !important; }
+[data-nextjs-toast],
+#__next-build-watcher,
+.nextjs-portal-root,
+[data-nextjs-dev-overlay-root] {
+  display: none !important;
+}

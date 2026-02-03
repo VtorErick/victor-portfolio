@@ -1,0 +1,32 @@
+---
+title: "Perfect Dark Mode with CSS Variables"
+date: "2026-01-08"
+excerpt: "Implementing a robust theming system that respects system preference and allows manual override."
+tags: ["CSS", "Dark Mode", "UX"]
+---
+
+# More than just inverting colors
+
+Implementing dark mode isn't just setting a black background and white text. It's about reducing luminance while preserving contrast and visual hierarchy.
+
+## Token Strategy
+
+In my `globals.css`, I define semantic variables:
+
+```css
+:root {
+  --background: #fafafa;
+  --foreground: #18181b;
+}
+
+[data-theme="dark"] {
+  --background: #09090b;
+  --foreground: #e4e4e7;
+}
+```
+
+Tailwind consumes these variables. Thus, `bg-[var(--background)]` works automatically in both modes.
+
+## Avoiding "Flashbang"
+
+We use a script in `layout.tsx` to read `localStorage` or `prefers-color-scheme` before React hydrates, preventing the user from seeing a white flash if they prefer dark mode.

@@ -1,0 +1,25 @@
+---
+title: "Font Optimization with next/font"
+date: "2026-01-18"
+excerpt: "Eliminating Layout Shift (CLS) using the built-in font optimization system in Next.js."
+tags: ["Performance", "Typography", "Next.js"]
+---
+
+# Goodbye Text Flicker
+
+Have you noticed how on some websites the text changes font a second after loading? That's a "Flash of Unstyled Text" (FOUT) and it hurts experience and SEO.
+
+## The `next/font` Solution
+
+In this project, I use `Geist Sans` and `Geist Mono`.
+
+```typescript
+import { Geist, Geist_Mono } from "next/font/google";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+```
+
+Next.js downloads the font at build time and serves it from the same domain as the HTML. No more requests to Google Fonts delaying loading. The result is a **Cumulative Layout Shift (CLS) of 0**.

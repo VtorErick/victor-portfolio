@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import { useLanguageContext } from '@/contexts/LanguageContext';
+import { uiTranslations } from '@/data/ui-translations';
 import { t, tArray } from '@/utils/translate';
 import type { Experience } from '@/types/portfolio';
 
@@ -15,7 +16,7 @@ export default function ExperienceCard({ experience, gradientPosition }: Experie
   return (
     <Card
       as="article"
-      className="rounded-2xl border border-black/10 bg-[var(--card)] shadow-sm hover:shadow-md transition-shadow"
+      className="rounded-2xl border border-[color:var(--border)] bg-[var(--card)] shadow-sm hover:shadow-md transition-shadow"
       gradient={{ position: gradientPosition, intensity: 0.15 }}
     >
       <div className="p-5 md:p-6">
@@ -24,13 +25,15 @@ export default function ExperienceCard({ experience, gradientPosition }: Experie
           <div className="flex items-center gap-4">
             {experience.logoUrl && (
               <div 
-                className="w-14 h-14 rounded-lg bg-white border border-black/10 flex items-center justify-center flex-shrink-0 p-2 shadow-sm"
+                className="w-14 h-14 rounded-lg bg-white border border-[color:var(--border)] flex items-center justify-center flex-shrink-0 p-2 shadow-sm"
                 aria-hidden="true"
               >
                 <img 
                   src={experience.logoUrl} 
-                  alt={`${experience.company} logo`} 
+                  alt=""
                   className="w-full h-full object-contain" 
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             )}
@@ -44,7 +47,7 @@ export default function ExperienceCard({ experience, gradientPosition }: Experie
             </div>
           </div>
           <time 
-            className="text-xs px-3 py-1.5 rounded bg-[var(--muted)] border border-black/10 text-[color:var(--foreground)]/70 whitespace-nowrap self-start"
+            className="text-xs px-3 py-1.5 rounded bg-[var(--muted)] border border-[color:var(--border)] text-[color:var(--foreground)]/70 whitespace-nowrap self-start"
             dateTime={experience.period}
           >
             {experience.period}
@@ -60,11 +63,15 @@ export default function ExperienceCard({ experience, gradientPosition }: Experie
 
         {/* Technologies */}
         {experience.technologies && experience.technologies.length > 0 && (
-          <div className="mt-4 flex flex-wrap gap-2" role="list">
+          <div
+            className="mt-4 flex flex-wrap gap-2"
+            role="list"
+            aria-label={t(uiTranslations.aria.technologiesUsed, language)}
+          >
             {experience.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-2.5 py-1 text-xs rounded border border-black/10 bg-[var(--muted)] text-[color:var(--foreground)]/90"
+                className="px-2.5 py-1 text-xs rounded border border-[color:var(--border)] bg-[var(--muted)] text-[color:var(--foreground)]/90"
                 role="listitem"
               >
                 {tech}

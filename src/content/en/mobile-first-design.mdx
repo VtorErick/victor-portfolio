@@ -1,0 +1,21 @@
+---
+title: "Why Mobile-First Is Not Optional"
+date: "2026-01-02"
+excerpt: "My design approach for this portfolio: Starting with the small screen to guarantee a solid experience on any device."
+tags: ["Design", "CSS", "Responsive"]
+---
+
+# Creative Constraints
+
+Designing for mobile first forces you to prioritize content. You don't have space for unnecessary embellishments.
+
+## Tailwind and Breakpoints
+
+In this project, I write base styles for mobile and use `md:` or `lg:` prefixes for large screens.
+
+```tsx
+// Small padding on mobile, large on desktop
+<div className="p-4 md:p-10 lg:p-16">
+```
+
+This is better than "Desktop First" (using `max-width`), because the mobile browser doesn't have to process complex override rules; it simply reads the base. The result is lighter, more performant CSS on resource-constrained devices.

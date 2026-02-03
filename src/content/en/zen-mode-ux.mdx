@@ -1,0 +1,43 @@
+---
+title: "User Experience: Zen Mode and Animations"
+date: "2026-02-04"
+excerpt: "How I implemented Framer Motion for smooth transitions and the 'Zen Mode' concept for distraction-free reading."
+tags: ["UX", "Framer Motion", "React", "Design"]
+---
+
+# Designing "Zen Mode" 🧘
+
+One of the most unique features of this portfolio is **Zen Mode**.
+
+## What is it?
+
+Modern web development often overwhelms the user with information. I wanted to offer a way to "turn off the noise." By clicking the eye icon in the navigation bar, the UI fades away, leaving only essential content and interactive backgrounds.
+
+## Implementation with Context API
+
+I used React Context to manage the global UI state.
+
+```typescript
+// src/contexts/UIContext.tsx
+export function UIProvider({ children }) {
+  const [isZenMode, setIsZenMode] = useState(false)
+
+  const toggleZenMode = () => setIsZenMode(prev => !prev)
+
+  return (
+    <UIContext.Provider value={{ isZenMode, toggleZenMode }}>
+      {children}
+    </UIContext.Provider>
+  )
+}
+```
+
+## Animations with Framer Motion
+
+To make it feel premium, nothing appears abruptly. Everything has a transition.
+
+- **Scroll Reveal**: Elements appear smoothly (`fadeInUp`) as you scroll down.
+- **Micro-interactions**: Buttons have scale effects on hover.
+- **Dynamic Backgrounds**: Particles and mathematical grids rendered in HTML5 Canvas.
+
+The result is a web that feels "alive" and responds to every user interaction.

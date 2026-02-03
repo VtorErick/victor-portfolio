@@ -1,0 +1,14 @@
+---
+title: "Deployment Strategies with Vercel"
+date: "2025-12-15"
+excerpt: "Continuous integration and atomic deployments: Why Vercel is the best home for Next.js."
+tags: ["DevOps", "Vercel", "Deployment"]
+---
+
+# Atomic Deployments
+
+I hosted this project on Vercel. The feature I value most is **Deploy Previews**.
+
+Every time I open a Pull Request on GitHub, Vercel creates a unique URL with that version of the site. I can share it, test it on my mobile, and verify visual changes without touching the production site.
+
+Once code is merged to `main`, Vercel updates production instantly, invalidating the CDN cache globally. This infrastructure, which used to require a dedicated DevOps team, is now automatic.

@@ -1,0 +1,48 @@
+---
+title: "Construyendo un Portafolio Moderno: El Stack Tecnológico"
+date: "2026-02-03"
+excerpt: "Un análisis profundo de por qué elegí Next.js 15, Tailwind CSS y TypeScript para construir este sitio web de alto rendimiento."
+tags: ["Architecture", "Next.js", "TypeScript", "Tailwind"]
+---
+
+# El Stack Tecnológico
+
+Cuando decidí renovar mi portafolio, sabía que no quería solo una "cara bonita". Quería una plataforma que demostrara capacidad de ingeniería, rendimiento y escalabilidad.
+
+## El Núcleo: Next.js 15 (App Router)
+
+Elegí **Next.js** por su capacidad de renderizado híbrido. La mayoría del sitio es **Static Site Generation (SSG)** para una velocidad inigualable, pero mantengo la interactividad con componentes de cliente (`"use client"`) donde es necesario, como en la barra de navegación o los filtros del blog.
+
+```typescript
+// Ejemplo de componente Cliente para interactividad
+"use client"
+
+import { useState } from 'react'
+
+export default function InteractiveComponent() {
+  const [count, setCount] = useState(0)
+  // ...
+}
+```
+
+## Estilizado: Tailwind CSS v4
+
+La velocidad de desarrollo con Tailwind es superior. Además, permite un sistema de diseño consistente basado en tokens.
+
+- **Diseño Responsivo**: Grid y Flexbox utilitarios.
+- **Modo Oscuro**: Soporte nativo con `dark:` modifiers.
+- **Glassmorphism**: Efectos de `backdrop-blur` para un look moderno.
+
+## Tipado Fuerte: TypeScript
+
+No hay proyecto serio sin TypeScript. Desde la definición de los datos del portafolio hasta los componentes de React, todo está tipado para evitar errores en tiempo de compilación y mejorar la mantenibilidad.
+
+```typescript
+interface Project {
+  title: string
+  description: Record<'es' | 'en', string>
+  technologies: string[]
+}
+```
+
+Este stack no solo es moderno, es el estándar de la industria para aplicaciones web de alto nivel.

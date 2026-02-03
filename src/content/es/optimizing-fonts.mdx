@@ -1,0 +1,25 @@
+---
+title: "Optimización de Fuentes con next/font"
+date: "2026-01-18"
+excerpt: "Eliminando el Layout Shift (CLS) utilizando el sistema de optimización de fuentes incorporado en Next.js."
+tags: ["Performance", "Typography", "Next.js"]
+---
+
+# Adiós al Parpadeo de Texto
+
+¿Has notado cómo en algunas webs el texto cambia de fuente un segundo después de cargar? Eso es un "Flash of Unstyled Text" (FOUT) y daña la experiencia y el SEO.
+
+## La Solución `next/font`
+
+En este proyecto uso `Geist Sans` y `Geist Mono`.
+
+```typescript
+import { Geist, Geist_Mono } from "next/font/google";
+
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+```
+
+Next.js descarga la fuente en el tiempo de construcción (build time) y la sirve desde el mismo dominio que el HTML. Ya no hay peticiones a Google Fonts que retrasen la carga. El resultado es un **Cumulative Layout Shift (CLS) de 0**.

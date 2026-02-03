@@ -1,0 +1,26 @@
+---
+title: "Mejores Prácticas de SEO en 2026"
+date: "2025-12-10"
+excerpt: "Open Graph, Meta Tags dinámicos y Sitemaps. Cómo optimizar un SPA para motores de búsqueda."
+tags: ["SEO", "Marketing", "Next.js"]
+---
+
+# Ser Encontrado
+
+Tener un portafolio increíble no sirve de nada si nadie lo ve.
+
+## Metadata API
+
+Next.js 15 hace el SEO trivial con la Metadata API. Cada página exporta un objeto `metadata`.
+
+```typescript
+export const metadata: Metadata = {
+  title: 'Blog - Victor Acosta',
+  description: 'Artículos técnicos...',
+  openGraph: {
+    images: ['/og-image.png'],
+  },
+}
+```
+
+Esto genera automáticamente las etiquetas `<meta>` para Twitter, Facebook y Google. Además, configuré la generación automática de `sitemap.xml` que incluye dinámicamente cada nuevo post del blog que escribo, asegurando que Google indexe mi contenido fresco rápidamente.

@@ -1,0 +1,43 @@
+---
+title: "Experiencia de Usuario: Modo Zen y Animaciones"
+date: "2026-02-04"
+excerpt: "Cómo implementé Framer Motion para transiciones suaves y el concepto de 'Modo Zen' para una lectura sin distracciones."
+tags: ["UX", "Framer Motion", "React", "Design"]
+---
+
+# Diseñando el "Modo Zen" 🧘
+
+Una de las características más únicas de este portafolio es el **Modo Zen**.
+
+## ¿Qué es?
+
+El desarrollo web moderno a menudo satura al usuario con información. Quería ofrecer una forma de "apagar el ruido". Al hacer clic en el icono del ojo en la barra de navegación, la interfaz de usuario se desvanece, dejando solo el contenido esencial y los fondos interactivos.
+
+## Implementación con Context API
+
+Utilicé React Context para manejar el estado global de la UI.
+
+```typescript
+// src/contexts/UIContext.tsx
+export function UIProvider({ children }) {
+  const [isZenMode, setIsZenMode] = useState(false)
+
+  const toggleZenMode = () => setIsZenMode(prev => !prev)
+
+  return (
+    <UIContext.Provider value={{ isZenMode, toggleZenMode }}>
+      {children}
+    </UIContext.Provider>
+  )
+}
+```
+
+## Animaciones con Framer Motion
+
+Para que se sintiera premium, nada aparece de golpe. Todo tiene una transición.
+
+- **Scroll Reveal**: Los elementos aparecen suavemente (`fadeInUp`) mientras bajas.
+- **Micro-interacciones**: Los botones tienen efectos de escala al hacer hover.
+- **Fondos Dinámicos**: Partículas y grids matemáticos renderizados en Canvas HTML5.
+
+El resultado es una web que se siente "viva" y responde a cada interacción del usuario.

@@ -1,0 +1,24 @@
+---
+title: "Bulletproof Form Validation with Zod"
+date: "2025-12-25"
+excerpt: "Deep dive into the contact form: How Zod and React Hook Form ensure clean data before sending."
+tags: ["TypeScript", "Forms", "Zod"]
+---
+
+# Trust in Data
+
+Validating forms by hand is error-prone. In this project, I define a "schema" of what I expect to receive:
+
+```typescript
+const formSchema = z.object({
+  email: z.string().email("Must be a valid email"),
+  message: z.string().min(10, "Message is too short"),
+})
+```
+
+React Hook Form uses this schema with `zodResolver`.
+- **UX**: The user gets instant feedback as they type.
+- **Security**: We avoid sending garbage data to the API.
+- **DX**: TypeScript infers types automatically.
+
+It's a perfect trinity of User Experience, Security, and Developer Experience.

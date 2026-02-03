@@ -1,0 +1,21 @@
+---
+title: "Por Qué Mobile-First No Es Opcional"
+date: "2026-01-02"
+excerpt: "Mi enfoque de diseño para este portafolio: Comenzando por la pantalla pequeña para garantizar una experiencia sólida en cualquier dispositivo."
+tags: ["Design", "CSS", "Responsive"]
+---
+
+# Restricciones Creativas
+
+Diseñar para móvil primero te obliga a priorizar el contenido. No tienes espacio para adornos innecesarios.
+
+## Tailwind y los Breakpoints
+
+En este proyecto, escribo los estilos base para móvil y uso prefijos `md:` o `lg:` para pantallas grandes.
+
+```tsx
+// Padding pequeño en móvil, grande en desktop
+<div className="p-4 md:p-10 lg:p-16">
+```
+
+Esto es mejor que "Desktop First" (usar `max-width`), porque el navegador móvil no tiene que procesar reglas de anulación complejas; simplemente lee la base. El resultado es un código CSS más ligero y performante en dispositivos con recursos limitados.

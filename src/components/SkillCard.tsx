@@ -15,7 +15,7 @@ export default function SkillCard({ skill, gradientPosition }: SkillCardProps) {
   return (
     <Card
       as="article"
-      className="bg-[var(--muted)] p-6 md:p-7 rounded-xl border border-black/10"
+      className="bg-[var(--muted)] p-6 md:p-7 rounded-xl border border-[color:var(--border)]"
       gradient={{ position: gradientPosition, intensity: 0.12 }}
     >
       <h3 className="text-lg font-semibold mb-3 text-[color:var(--foreground)]">

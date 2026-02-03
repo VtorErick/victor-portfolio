@@ -1,0 +1,24 @@
+---
+title: "SSR vs SSG: Choosing the Right Strategy"
+date: "2026-01-12"
+excerpt: "Analysis of rendering strategies: Why I dared to choose Static Site Generation for this blog."
+tags: ["Performance", "Next.js", "Backend"]
+---
+
+# Static vs Server
+
+In Next.js, we have several options for rendering content:
+1.  **SSR (Server-Side Rendering)**: Generated on every request.
+2.  **SSG (Static Site Generation)**: Generated at build time.
+3.  **ISR (Incremental Static Regeneration)**: Regenerated every X time.
+
+## My Choice: SSG
+
+For a personal portfolio and blog, content doesn't change every second. Using SSG means Next.js builds pure HTML files during deployment.
+
+### Advantages:
+- **Extreme Speed**: The server only serves static files, computes nothing.
+- **Cheap**: Can be hosted on any CDN.
+- **Availability**: If the database (or CMS) goes down, the site stays online because it's static.
+
+The pages of this blog (`/blog/[slug]`) are generated with `generateStaticParams`, creating a physical HTML page for each article at build time.

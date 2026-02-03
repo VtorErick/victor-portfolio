@@ -1,0 +1,31 @@
+---
+title: "Effective Component Composition in Next.js"
+date: "2026-01-28"
+excerpt: "How to structure components for maximum reusability and cleanliness, using the composition over inheritance pattern."
+tags: ["React", "Clean Code", "Next.js"]
+---
+
+# The Art of Composition
+
+In this portfolio, I avoided monolithic components. Instead, I use composition to build complex interfaces from simple pieces.
+
+## The "Props Drilling" Problem
+
+Passing props through multiple levels is tedious. Composition solves this by allowing components to be passed as `children`.
+
+```tsx
+// A generic Card component used in Education, Experience, etc.
+export default function Card({ children, className }) {
+  return (
+    <div className={`rounded-xl border border-border bg-card p-6 ${className}`}>
+      {children}
+    </div>
+  )
+}
+```
+
+## Slots Pattern
+
+For more complex components like the `NavBar`, I defined "slots" or areas where content can be injected, keeping the layout agnostic to specific content.
+
+Composition makes the code more declarative and easier to understand, a key principle in this project's architecture.

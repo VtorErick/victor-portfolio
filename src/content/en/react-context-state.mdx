@@ -1,0 +1,34 @@
+---
+title: "Global State Management with React Context"
+date: "2026-01-25"
+excerpt: "Avoiding Redux in favor of React Context API to manage theme and language state in a lightweight application."
+tags: ["React", "State Management", "Performance"]
+---
+
+# Redux? Not for this.
+
+I often see over-engineered portfolios using Redux or Zustand. For this project, I decided **React Context API** was the right tool due to its simplicity and zero extra dependencies.
+
+## My Implementation: UIContext
+
+I needed to control "Zen Mode" from anywhere (NavBar, Home, Footer).
+
+```typescript
+// contexts/UIContext.tsx
+const UIContext = createContext<UIContextType | undefined>(undefined);
+
+export function UIProvider({ children }: { children: ReactNode }) {
+  const [isZenMode, setIsZenMode] = useState(false);
+
+  // Logic to persist or reset
+  return (
+    <UIContext.Provider value={{ isZenMode, toggleZenMode }}>
+      {children}
+    </UIContext.Provider>
+  )
+}
+```
+
+## Performance
+
+To avoid unnecessary re-renders, I separated contexts that change frequently (like user inputs, if any) from those that change rarely (Theme, Language). Splitting state is key to using Context efficiently.

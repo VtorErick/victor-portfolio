@@ -1,0 +1,25 @@
+---
+title: "El Poder de los Genéricos en TypeScript"
+date: "2026-01-15"
+excerpt: "Cómo utilicé genéricos para crear componentes de UI flexibles y con seguridad de tipos estricta."
+tags: ["TypeScript", "Development", "Coding"]
+---
+
+# Más allá del `any`
+
+TypeScript brilla cuando usas genéricos para construir herramientas reutilizables. Un ejemplo claro en este proyecto es mi manejo de respuestas API o componentes polimórficos.
+
+## El caso de `contact-form`
+
+Para manejar el formulario, definimos un tipo inferido de Zod. Esto asegura que si cambio el esquema de validación, TypeScript me avise automáticamente si mi componente intenta acceder a un campo que ya no existe.
+
+```typescript
+type FormData = z.infer<typeof formSchema>
+
+const onSubmit = (data: FormData) => {
+  // data.email existe y es string
+  // data.edad daría error de compilación
+}
+```
+
+La seguridad de tipos no solo previene bugs, sino que actúa como documentación viva para mi yo del futuro.

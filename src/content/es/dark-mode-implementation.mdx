@@ -1,0 +1,32 @@
+---
+title: "Modo Oscuro Perfecto con Variables CSS"
+date: "2026-01-08"
+excerpt: "Implementación de un sistema de temas robusto que respeta la preferencia del sistema y permite override manual."
+tags: ["CSS", "Dark Mode", "UX"]
+---
+
+# Más que invertir colores
+
+Implementar modo oscuro no es solo poner fondo negro y texto blanco. Se trata de reducir la luminancia preservando el contraste y la jerarquía visual.
+
+## Estrategia de Tokens
+
+En mi `globals.css`, defino variables semánticas:
+
+```css
+:root {
+  --background: #fafafa;
+  --foreground: #18181b;
+}
+
+[data-theme="dark"] {
+  --background: #09090b;
+  --foreground: #e4e4e7;
+}
+```
+
+Tailwind consume estas variables. Así, `bg-[var(--background)]` funciona automáticamente en ambos modos.
+
+## Evitando el "Flashbang"
+
+Usamos un script en `layout.tsx` para leer `localStorage` o `prefers-color-scheme` antes de que React hidrate, evitando que el usuario vea un destello blanco si prefiere el modo oscuro.

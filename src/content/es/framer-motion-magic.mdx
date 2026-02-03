@@ -1,0 +1,26 @@
+---
+title: "Animaciones Fluidas con Layout Props"
+date: "2026-01-05"
+excerpt: "Creando magia visual: Cómo el filtrado de este blog anima los elementos al cambiar de posición automáticamente."
+tags: ["Framer Motion", "Animation", "UX"]
+---
+
+# Magia Automática
+
+Framer Motion tiene una prop mágica llamada `layout`. Cuando la añades a un componente `motion.div`, la librería detecta automáticamente cambios en su posición o tamaño y anima la transición.
+
+## El Caso de Uso: Filtro del Blog
+
+Cuando seleccionas un Tag en este blog, la lista de posts se reordena y filtra. Sin animación, sería un cambio brusco.
+
+```tsx
+<motion.div layout className="grid gap-8">
+  {filteredPosts.map(post => (
+    <motion.article layout key={post.slug}>
+       {/* content */}
+    </motion.article>
+  ))}
+</motion.div>
+```
+
+Solo con añadir `layout`, las tarjetas se "deslizan" a sus nuevas posiciones. Es un detalle pequeño que eleva la calidad percibida de la aplicación inmensamente.
