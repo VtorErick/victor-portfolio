@@ -33,11 +33,13 @@ export default function ContactForm() {
         send: { es: 'Enviar Mensaje', en: 'Send Message' },
         sending: { es: 'Enviando...', en: 'Sending...' },
         success: { es: '¡Mensaje enviado!', en: 'Message sent!' },
-        successDesc: { es: 'Gracias por ponerte en contacto. Te responderé pronto.', en: 'Thanks for reaching out. I will get back to you soon.' },
+        successDesc: { es: 'Gracias por ponerte en contacto. Te responderé en 24 horas.', en: 'Thanks for reaching out. I will get back to you within 24 hours.' },
         error: { es: 'Error al enviar', en: 'Error sending' },
+        errorRetry: { es: 'Error de red. Por favor intenta de nuevo.', en: 'Network error. Please try again.' },
         placeholderName: { es: 'Tu nombre', en: 'Your name' },
         placeholderEmail: { es: 'nombre@ejemplo.com', en: 'name@example.com' },
         placeholderMessage: { es: '¿Cómo puedo ayudarte?', en: 'How can I help you?' },
+        privacy: { es: 'Tu correo es privado y seguro. No lo compartiré con terceros.', en: 'Your email is private and secure. I will not share it with anyone.' },
     }
 
     const t = (key: keyof typeof translations) => translations[key][language as 'es' | 'en']
@@ -184,12 +186,18 @@ export default function ContactForm() {
 
                         {/* Status Message */}
                         {status === 'error' && (
-                            <p className="text-red-500 text-sm text-center mt-2">
-                                {errorMessage || t('error')}
-                            </p>
+                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mt-3">
+                                <AlertCircle size={16} className="text-red-600 dark:text-red-400 flex-shrink-0" />
+                                <p className="text-red-700 dark:text-red-300 text-sm">
+                                    {errorMessage || t('errorRetry')}
+                                </p>
+                            </div>
                         )}
 
-                        <p className="text-xs text-[var(--foreground)]/40 text-center mt-4">
+                        <p className="text-xs text-[var(--foreground)]/50 text-center mt-4">
+                            {t('privacy')}
+                        </p>
+                        <p className="text-xs text-[var(--foreground)]/30 text-center">
                             Powered by Web3Forms
                         </p>
                     </motion.form>
