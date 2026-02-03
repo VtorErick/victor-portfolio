@@ -5,16 +5,19 @@ import { ArrowLeft } from 'lucide-react'
 import { useLanguageContext } from '@/contexts/LanguageContext'
 import { Post } from '@/lib/mdx'
 import Comments from '@/components/Comments'
-import { MDXContent } from '@/components/MDXContent'
+import { ReactNode } from 'react'
 
 interface BlogPostProps {
     postEs: Post
     postEn: Post
+    mdxContentEs: ReactNode
+    mdxContentEn: ReactNode
 }
 
-export default function BlogPost({ postEs, postEn }: BlogPostProps) {
+export default function BlogPost({ postEs, postEn, mdxContentEs, mdxContentEn }: BlogPostProps) {
     const { language } = useLanguageContext()
     const post = language === 'es' ? postEs : postEn
+    const mdxContent = language === 'es' ? mdxContentEs : mdxContentEn
 
     return (
         <article className="max-w-3xl mx-auto px-4 py-24 md:py-32">
@@ -48,7 +51,7 @@ export default function BlogPost({ postEs, postEn }: BlogPostProps) {
                 </div>
             </header>
 
-            <MDXContent content={post.content} />
+            {mdxContent}
 
             <Comments />
         </article>

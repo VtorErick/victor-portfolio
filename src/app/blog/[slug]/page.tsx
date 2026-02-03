@@ -4,6 +4,7 @@ import NavBar from '@/components/NavBar'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import { ArrowLeft } from 'lucide-react'
+import { BlogPostWrapper } from '@/components/BlogPostWrapper'
 
 // Allow static generation for all posts (combining slugs from both languages)
 export async function generateStaticParams() {
@@ -33,9 +34,6 @@ export async function generateMetadata(props: { params: Promise<{ slug: string }
     }
 }
 
-// Import Client Component
-import BlogPostClient from '@/components/BlogPost'
-
 export default async function BlogPostPage(props: { params: Promise<{ slug: string }> }) {
     const params = await props.params;
     const { slug } = params
@@ -56,7 +54,7 @@ export default async function BlogPostPage(props: { params: Promise<{ slug: stri
     return (
         <div className="min-h-screen bg-[var(--background)]">
             <NavBar embedded={false} />
-            <BlogPostClient postEs={postEs} postEn={postEn} />
+            <BlogPostWrapper postEs={postEs} postEn={postEn} />
         </div>
     )
 }
