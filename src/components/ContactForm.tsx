@@ -56,9 +56,9 @@ export default function ContactForm() {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: "YOUR_ACCESS_KEY_HERE", // User needs to replace this
+                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
                     ...data,
-                    subject: `New submission from ${data.name}`
+                    subject: `New submission from ${data.name}`,
                 })
             });
 
