@@ -1,9 +1,6 @@
 import { getPostBySlug, getAllPosts } from '@/lib/mdx'
-import { MDXRemote } from 'next-mdx-remote/rsc'
 import NavBar from '@/components/NavBar'
 import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import { ArrowLeft } from 'lucide-react'
 import { BlogPostWrapper } from '@/components/BlogPostWrapper'
 
 // Allow static generation for all posts (combining slugs from both languages)

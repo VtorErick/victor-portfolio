@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback, useLayoutEffect } from 'react';
 
 type Theme = 'light' | 'dark';
 
@@ -13,23 +13,15 @@ function getPreferredTheme(): Theme {
 }
 
 export function useTheme() {
-  // Initialize with 'dark' to match server-side default
+  // Initialize with preferred theme to match server-side default
   // This prevents hydration mismatch
-  const [theme, setTheme] = useState<Theme>('dark');
-  const [mounted, setMounted] = useState(false);
+  const [theme, setTheme] = useState<Theme>(getPreferredTheme());
+  const [mounted] = useState(true);
 
-  useEffect(() => {
-    // Get the actual preference after mount
+  // Use useLayoutEffect to set theme before paint
+  useLayoutEffect(() => {
     const initial = getPreferredTheme();
-    // Only update if it's different from the default
-    if (initial !== 'dark') {
-      setTheme(initial);
-      document.documentElement.setAttribute('data-theme', initial);
-    } else {
-      // Ensure attribute is set even if theme matches
-      document.documentElement.setAttribute('data-theme', 'dark');
-    }
-    setMounted(true);
+    document.documentElement.setAttribute('data-theme', initial);
   }, []);
 
   const toggleTheme = useCallback(() => {

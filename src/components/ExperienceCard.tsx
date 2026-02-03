@@ -1,4 +1,5 @@
 import React from 'react';
+import Image from 'next/image';
 import Card from './Card';
 import { useLanguageContext } from '@/contexts/LanguageContext';
 import { uiTranslations } from '@/data/ui-translations';
@@ -28,12 +29,13 @@ export default function ExperienceCard({ experience, gradientPosition }: Experie
                 className="w-14 h-14 rounded-lg bg-white border border-[color:var(--border)] flex items-center justify-center flex-shrink-0 p-2 shadow-sm"
                 aria-hidden="true"
               >
-                <img 
+                <Image 
                   src={experience.logoUrl} 
                   alt=""
+                  width={56}
+                  height={56}
                   className="w-full h-full object-contain" 
                   loading="lazy"
-                  decoding="async"
                 />
               </div>
             )}

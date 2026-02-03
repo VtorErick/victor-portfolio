@@ -70,7 +70,7 @@ export default function ContactForm() {
             } else {
                 throw new Error(result.message || 'Something went wrong')
             }
-        } catch (error) {
+        } catch {
             setStatus('error')
             setErrorMessage('Network error, please try again later.')
             setTimeout(() => setStatus('idle'), 5000)

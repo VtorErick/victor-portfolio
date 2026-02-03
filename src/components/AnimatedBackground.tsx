@@ -239,8 +239,8 @@ export default function AnimatedBackground({
       animate()
     }
 
-    function renderOrbFlow(ctx: any, canvas: any, reducedMotion: any, intensity: any, linkRgb: any) {
-      const orbs: any[] = []
+    function renderOrbFlow(ctx: CanvasRenderingContext2D, canvas: HTMLCanvasElement, reducedMotion: boolean, intensity: string, linkRgb: [number, number, number]) {
+      const orbs: Array<{x: number; y: number; r: number; vx: number; vy: number}> = []
       for (let i = 0; i < 8; i++) {
         orbs.push({
           x: Math.random() * canvas.width,
@@ -252,7 +252,7 @@ export default function AnimatedBackground({
       }
       function animate() {
         ctx.clearRect(0, 0, canvas.width, canvas.height)
-        orbs.forEach((orb: any) => {
+        orbs.forEach((orb: {x: number; y: number; r: number; vx: number; vy: number}) => {
           if (!reducedMotion) {
             orb.x += orb.vx; orb.y += orb.vy
             if (orb.x < -100 || orb.x > canvas.width + 100) orb.vx *= -1
@@ -272,7 +272,13 @@ export default function AnimatedBackground({
       animate()
     }
 
-    function renderGridWarp(ctx: any, canvas: any, reducedMotion: any, intensity: any, linkRgb: any) {
+    function renderGridWarp(
+      ctx: CanvasRenderingContext2D, 
+      canvas: HTMLCanvasElement, 
+      reducedMotion: boolean, 
+      intensity: string, 
+      linkRgb: [number, number, number]
+    ) {
       // Simple grid
       let time = 0
       function animate() {
@@ -296,7 +302,13 @@ export default function AnimatedBackground({
       animate()
     }
 
-    function renderMatrixRain(ctx: any, canvas: any, reducedMotion: any, intensity: any, linkRgb: any) {
+    function renderMatrixRain(
+      ctx: CanvasRenderingContext2D, 
+      canvas: HTMLCanvasElement, 
+      reducedMotion: boolean, 
+      intensity: string, 
+      linkRgb: [number, number, number]
+    ) {
       const fs = 14; const cols = Math.ceil(canvas.width / fs); const drops = new Array(cols).fill(1)
       function animate() {
         ctx.fillStyle = 'rgba(0,0,0,0.05)'; ctx.fillRect(0, 0, canvas.width, canvas.height)

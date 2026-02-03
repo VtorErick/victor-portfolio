@@ -1,7 +1,6 @@
 import { Post } from '@/lib/mdx'
 import { MDXContent } from '@/components/MDXContent'
 import BlogPost from '@/components/BlogPost'
-import { ReactNode } from 'react'
 
 interface BlogPostWrapperProps {
     postEs: Post

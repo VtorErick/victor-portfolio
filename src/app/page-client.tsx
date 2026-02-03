@@ -2,7 +2,6 @@
 
 import { useSmoothScroll } from '@/hooks/useSmoothScroll'
 import { useLanguageContext } from '@/contexts/LanguageContext'
-import { useUIContext } from '@/contexts/UIContext'
 import { portfolioData } from '@/data/portfolio-data'
 import { uiTranslations } from '@/data/ui-translations'
 import { t } from '@/utils/translate'
@@ -13,7 +12,7 @@ import AchievementCard from '../components/AchievementCard'
 import Card from '../components/Card'
 import ContactForm from '../components/ContactForm'
 import BlogPreview from '../components/BlogPreview'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import dynamic from 'next/dynamic'
 import { Post } from '@/lib/mdx'
 

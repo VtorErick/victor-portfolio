@@ -11,6 +11,7 @@ export type Post = {
         date: string
         excerpt: string
         tags?: string[]
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         [key: string]: any
     }
     content: string
@@ -33,7 +34,7 @@ export function getPostBySlug(slug: string, lang: 'es' | 'en' = 'es'): Post | un
             meta: data as Post['meta'],
             content
         }
-    } catch (e) {
+    } catch {
         return undefined
     }
 }

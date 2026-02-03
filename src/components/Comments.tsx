@@ -41,7 +41,7 @@ export default function Comments() {
         if (commentsDiv) {
             commentsDiv.appendChild(script);
         }
-    }, [mounted]);
+    }, [mounted, language]);
 
     // Update language and theme without remounting giscus
     useEffect(() => {

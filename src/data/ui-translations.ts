@@ -1,5 +1,3 @@
-import type { Translation } from '@/types/language';
-
 export const uiTranslations = {
   navigation: {
     mainNav: {

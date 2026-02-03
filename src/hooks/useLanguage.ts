@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from 'react';
+import { useState, useCallback, useLayoutEffect } from 'react';
 import type { Language } from '@/types/language';
 
 function getPreferredLanguage(): Language {
@@ -14,23 +14,15 @@ function getPreferredLanguage(): Language {
 }
 
 export function useLanguage() {
-  // Initialize with 'es' to match server-side default
+  // Initialize with preferred language to match server-side default
   // This prevents hydration mismatch
-  const [language, setLanguage] = useState<Language>('es');
-  const [mounted, setMounted] = useState(false);
+  const [language, setLanguage] = useState<Language>(getPreferredLanguage());
+  const [mounted] = useState(true);
 
-  useEffect(() => {
-    // Get the actual preference after mount
+  // Use useLayoutEffect to set language before paint
+  useLayoutEffect(() => {
     const initial = getPreferredLanguage();
-    // Only update if it's different from the default
-    if (initial !== 'es') {
-      setLanguage(initial);
-      document.documentElement.setAttribute('lang', initial);
-    } else {
-      // Ensure attribute is set even if language matches
-      document.documentElement.setAttribute('lang', 'es');
-    }
-    setMounted(true);
+    document.documentElement.setAttribute('lang', initial);
   }, []);
 
   const toggleLanguage = useCallback(() => {
