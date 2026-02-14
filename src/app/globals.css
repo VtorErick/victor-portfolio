@@ -103,6 +103,10 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
+section[id] {
+  scroll-margin-top: 6rem;
+}
+
 /* Improve focus visibility */
 :focus-visible {
   outline: 2px solid var(--link);

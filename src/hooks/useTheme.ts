@@ -9,14 +9,14 @@ function getPreferredTheme(): Theme {
   if (stored === 'light' || stored === 'dark') return stored;
   
   const prefersDark = window.matchMedia?.('(prefers-color-scheme: dark)').matches;
-  return prefersDark ? 'dark' : 'dark';
+  return prefersDark ? 'dark' : 'light';
 }
 
 export function useTheme() {
   // Initialize with preferred theme to match server-side default
   // This prevents hydration mismatch
   const [theme, setTheme] = useState<Theme>(getPreferredTheme());
-  const [mounted] = useState(true);
+  const mounted = typeof window !== 'undefined';
 
   // Use useLayoutEffect to set theme before paint
   useLayoutEffect(() => {

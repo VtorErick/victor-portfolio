@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as z from 'zod'
@@ -10,9 +10,9 @@ import { useLanguageContext } from '@/contexts/LanguageContext'
 
 // Schema validation
 const formSchema = z.object({
-    name: z.string().min(2, { message: "Name must be at least 2 characters" }),
-    email: z.string().email({ message: "Invalid email address" }),
-    message: z.string().min(10, { message: "Message must be at least 10 characters" }),
+    name: z.string().trim().min(2, { message: "Name must be at least 2 characters" }),
+    email: z.string().trim().email({ message: "Invalid email address" }),
+    message: z.string().trim().min(10, { message: "Message must be at least 10 characters" }),
 })
 
 type FormData = z.infer<typeof formSchema>
@@ -21,6 +21,8 @@ export default function ContactForm() {
     const { language } = useLanguageContext()
     const [status, setStatus] = useState<'idle' | 'submitting' | 'success' | 'error'>('idle')
     const [errorMessage, setErrorMessage] = useState('')
+    const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY
 
     const { register, handleSubmit, formState: { errors }, reset } = useForm<FormData>({
         resolver: zodResolver(formSchema),
@@ -40,14 +42,42 @@ export default function ContactForm() {
         placeholderEmail: { es: 'nombre@ejemplo.com', en: 'name@example.com' },
         placeholderMessage: { es: '¿Cómo puedo ayudarte?', en: 'How can I help you?' },
         privacy: { es: 'Tu correo es privado y seguro. No lo compartiré con terceros.', en: 'Your email is private and secure. I will not share it with anyone.' },
+        sendAnother: { es: 'Enviar otro mensaje', en: 'Send another message' },
+        missingKey: { es: 'Falta configurar la clave de envío. Agrega NEXT_PUBLIC_WEB3FORMS_KEY en tu .env.', en: 'Missing form key. Add NEXT_PUBLIC_WEB3FORMS_KEY in your .env.' },
     }
 
     const t = (key: keyof typeof translations) => translations[key][language as 'es' | 'en']
+    const isSubmitting = status === 'submitting'
+
+    const clearResetTimer = () => {
+        if (resetTimerRef.current) {
+            clearTimeout(resetTimerRef.current)
+            resetTimerRef.current = null
+        }
+    }
+
+    const scheduleStatusReset = () => {
+        clearResetTimer()
+        resetTimerRef.current = setTimeout(() => setStatus('idle'), 5000)
+    }
+
+    useEffect(() => {
+        return () => clearResetTimer()
+    }, [])
 
     const onSubmit = async (data: FormData) => {
+        clearResetTimer()
+        setErrorMessage('')
         setStatus('submitting')
 
         try {
+            if (!accessKey) {
+                setStatus('error')
+                setErrorMessage(t('missingKey'))
+                scheduleStatusReset()
+                return
+            }
+
             // Using Web3Forms for serverless email submission
             const response = await fetch('https://api.web3forms.com/submit', {
                 method: 'POST',
@@ -56,11 +86,15 @@ export default function ContactForm() {
                     'Accept': 'application/json'
                 },
                 body: JSON.stringify({
-                    access_key: process.env.NEXT_PUBLIC_WEB3FORMS_KEY,
+                    access_key: accessKey,
                     ...data,
                     subject: `New submission from ${data.name}`,
                 })
             });
+
+            if (!response.ok) {
+                throw new Error('Network response was not ok')
+            }
 
             const result = await response.json();
 
@@ -68,14 +102,14 @@ export default function ContactForm() {
                 setStatus('success')
                 reset()
                 // Reset status after 5 seconds to allow sending another
-                setTimeout(() => setStatus('idle'), 5000)
+                scheduleStatusReset()
             } else {
                 throw new Error(result.message || 'Something went wrong')
             }
         } catch {
             setStatus('error')
-            setErrorMessage('Network error, please try again later.')
-            setTimeout(() => setStatus('idle'), 5000)
+            setErrorMessage(t('errorRetry'))
+            scheduleStatusReset()
         }
     }
 
@@ -88,6 +122,8 @@ export default function ContactForm() {
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0, scale: 0.9 }}
                         className="flex flex-col items-center justify-center text-center py-8"
+                        role="status"
+                        aria-live="polite"
                     >
                         <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mb-4 text-green-600 dark:text-green-400">
                             <CheckCircle size={32} />
@@ -95,10 +131,13 @@ export default function ContactForm() {
                         <h3 className="text-2xl font-bold mb-2 text-[var(--foreground)]">{t('success')}</h3>
                         <p className="text-[var(--foreground)]/70">{t('successDesc')}</p>
                         <button
-                            onClick={() => setStatus('idle')}
+                            onClick={() => {
+                                clearResetTimer()
+                                setStatus('idle')
+                            }}
                             className="mt-6 text-sm text-[var(--link)] hover:underline"
                         >
-                            Send another message
+                            {t('sendAnother')}
                         </button>
                     </motion.div>
                 ) : (
@@ -108,6 +147,7 @@ export default function ContactForm() {
                         exit={{ opacity: 0 }}
                         onSubmit={handleSubmit(onSubmit)}
                         className="space-y-4"
+                        aria-busy={isSubmitting}
                     >
                         {/* Name Field */}
                         <div className="space-y-2">
@@ -117,11 +157,16 @@ export default function ContactForm() {
                             <input
                                 id="name"
                                 {...register("name")}
+                                required
                                 placeholder={t('placeholderName')}
+                                autoComplete="name"
+                                aria-invalid={Boolean(errors.name)}
+                                aria-describedby={errors.name ? 'name-error' : undefined}
+                                disabled={isSubmitting}
                                 className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]/50 text-[var(--foreground)] focus:ring-2 focus:ring-[var(--link)] focus:border-transparent transition-all outline-none"
                             />
                             {errors.name && (
-                                <p className="text-red-500 text-xs flex items-center gap-1">
+                                <p id="name-error" className="text-red-500 text-xs flex items-center gap-1" role="alert">
                                     <AlertCircle size={12} /> {errors.name.message}
                                 </p>
                             )}
@@ -136,11 +181,17 @@ export default function ContactForm() {
                                 id="email"
                                 type="email"
                                 {...register("email")}
+                                required
                                 placeholder={t('placeholderEmail')}
+                                autoComplete="email"
+                                inputMode="email"
+                                aria-invalid={Boolean(errors.email)}
+                                aria-describedby={errors.email ? 'email-error' : undefined}
+                                disabled={isSubmitting}
                                 className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]/50 text-[var(--foreground)] focus:ring-2 focus:ring-[var(--link)] focus:border-transparent transition-all outline-none"
                             />
                             {errors.email && (
-                                <p className="text-red-500 text-xs flex items-center gap-1">
+                                <p id="email-error" className="text-red-500 text-xs flex items-center gap-1" role="alert">
                                     <AlertCircle size={12} /> {errors.email.message}
                                 </p>
                             )}
@@ -154,12 +205,17 @@ export default function ContactForm() {
                             <textarea
                                 id="message"
                                 {...register("message")}
+                                required
                                 placeholder={t('placeholderMessage')}
                                 rows={4}
+                                autoComplete="off"
+                                aria-invalid={Boolean(errors.message)}
+                                aria-describedby={errors.message ? 'message-error' : undefined}
+                                disabled={isSubmitting}
                                 className="w-full px-4 py-2 rounded-lg border border-[var(--border)] bg-[var(--background)]/50 text-[var(--foreground)] focus:ring-2 focus:ring-[var(--link)] focus:border-transparent transition-all outline-none resize-none"
                             />
                             {errors.message && (
-                                <p className="text-red-500 text-xs flex items-center gap-1">
+                                <p id="message-error" className="text-red-500 text-xs flex items-center gap-1" role="alert">
                                     <AlertCircle size={12} /> {errors.message.message}
                                 </p>
                             )}
@@ -168,10 +224,10 @@ export default function ContactForm() {
                         {/* Submit Button */}
                         <button
                             type="submit"
-                            disabled={status === 'submitting'}
+                            disabled={isSubmitting}
                             className="w-full flex items-center justify-center gap-2 py-3 px-4 bg-[var(--link)] hover:bg-[var(--link-hover)] text-white rounded-lg font-medium transition-all shadow-lg hover:shadow-xl disabled:opacity-70 disabled:cursor-not-allowed transform hover:-translate-y-0.5 active:translate-y-0"
                         >
-                            {status === 'submitting' ? (
+                            {isSubmitting ? (
                                 <>
                                     <Loader2 size={18} className="animate-spin" />
                                     {t('sending')}
@@ -186,7 +242,7 @@ export default function ContactForm() {
 
                         {/* Status Message */}
                         {status === 'error' && (
-                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mt-3">
+                            <div className="flex items-center gap-2 p-3 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg mt-3" role="alert" aria-live="polite">
                                 <AlertCircle size={16} className="text-red-600 dark:text-red-400 flex-shrink-0" />
                                 <p className="text-red-700 dark:text-red-300 text-sm">
                                     {errorMessage || t('errorRetry')}

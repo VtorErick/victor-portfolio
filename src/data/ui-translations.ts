@@ -151,6 +151,22 @@ export const uiTranslations = {
     viewGitHub: {
       es: 'Ver en GitHub',
       en: 'View on GitHub'
+    },
+    enableZenMode: {
+      es: 'Activar modo zen',
+      en: 'Enable zen mode'
+    },
+    disableZenMode: {
+      es: 'Desactivar modo zen',
+      en: 'Disable zen mode'
+    },
+    openMenu: {
+      es: 'Abrir menú',
+      en: 'Open menu'
+    },
+    closeMenu: {
+      es: 'Cerrar menú',
+      en: 'Close menu'
     }
   }
 } as const;

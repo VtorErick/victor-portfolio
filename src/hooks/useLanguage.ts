@@ -17,7 +17,7 @@ export function useLanguage() {
   // Initialize with preferred language to match server-side default
   // This prevents hydration mismatch
   const [language, setLanguage] = useState<Language>(getPreferredLanguage());
-  const [mounted] = useState(true);
+  const mounted = typeof window !== 'undefined';
 
   // Use useLayoutEffect to set language before paint
   useLayoutEffect(() => {

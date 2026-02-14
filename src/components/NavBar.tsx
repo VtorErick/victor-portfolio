@@ -73,6 +73,12 @@ export default function NavBar({ embedded = false }: NavBarProps) {
 
   const toggleMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen)
   const closeMenu = () => setIsMobileMenuOpen(false)
+  const zenLabel = isZenMode
+    ? t(uiTranslations.aria.disableZenMode, language)
+    : t(uiTranslations.aria.enableZenMode, language)
+  const menuLabel = isMobileMenuOpen
+    ? t(uiTranslations.aria.closeMenu, language)
+    : t(uiTranslations.aria.openMenu, language)
 
   return (
     <nav className={containerClass} role="navigation" aria-label={t(uiTranslations.navigation.mainNav, language)}>
@@ -103,8 +109,8 @@ export default function NavBar({ embedded = false }: NavBarProps) {
                 onClick={toggleZenMode}
                 className={`p-2 rounded-md transition-colors ${embedded ? "text-white hover:bg-white/10" : "text-[var(--foreground)] hover:bg-[var(--muted)]"
                   }`}
-                aria-label={isZenMode ? "Disable Zen Mode" : "Enable Zen Mode"}
-                title={isZenMode ? "Disable Zen Mode" : "Enable Zen Mode"}
+                aria-label={zenLabel}
+                title={zenLabel}
               >
                 {isZenMode ? <EyeOff size={20} /> : <Eye size={20} />}
               </button>
@@ -121,7 +127,7 @@ export default function NavBar({ embedded = false }: NavBarProps) {
               onClick={toggleZenMode}
               className={`p-2 rounded-md transition-colors ${embedded ? "text-white hover:bg-white/10" : "text-[var(--foreground)] hover:bg-[var(--foreground)]/5"
                 }`}
-              aria-label={isZenMode ? "Disable Zen Mode" : "Enable Zen Mode"}
+              aria-label={zenLabel}
             >
               {isZenMode ? <EyeOff size={20} /> : <Eye size={20} />}
             </button>
@@ -130,7 +136,9 @@ export default function NavBar({ embedded = false }: NavBarProps) {
               onClick={toggleMenu}
               className={`p-2 rounded-md transition-colors ${embedded ? "text-white hover:bg-white/10" : "text-[var(--foreground)] hover:bg-[var(--foreground)]/5"
                 }`}
-              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-label={menuLabel}
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -146,6 +154,7 @@ export default function NavBar({ embedded = false }: NavBarProps) {
             animate={{ opacity: 1, height: 'calc(100vh - 4rem)' }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
+            id="mobile-menu"
             className="md:hidden fixed inset-x-0 top-16 z-40 bg-gradient-to-b from-[var(--background)]/98 to-[var(--card)]/98 backdrop-blur-2xl border-t border-[var(--border)] overflow-y-auto"
           >
             <div className="flex flex-col p-6 gap-3 pt-8">
